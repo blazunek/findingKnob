@@ -38,9 +38,8 @@ using PointT = pcl::PointXYZRGB;  // The point type used for input
 
 
 /// Global variables
-
-boost::shared_ptr<pcl::visualization::PCLVisualizer> global_viewer(new pcl::visualization::PCLVisualizer("VisManu"));
 boost::shared_ptr<pcl::visualization::PCLVisualizer> viewer(new pcl::visualization::PCLVisualizer("VisAuto"));
+boost::shared_ptr<pcl::visualization::PCLVisualizer> global_viewer(new pcl::visualization::PCLVisualizer("VisManu"));
 pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZRGB>); 
 pcl::PointCloud<pcl::PointXYZRGB>::Ptr knobAuto (new pcl::PointCloud<pcl::PointXYZRGB>);
 pcl::PointCloud<pcl::PointXYZRGB>::Ptr knobManu (new pcl::PointCloud<pcl::PointXYZRGB>);
@@ -385,6 +384,7 @@ void validation(){
   FN = (numPointManu) - (TP);
   TN = numPointCloud - (TP+FP+FN);
 
+
   std::cout << "TP: " << TP << std::endl;
   std::cout << "FP: " << FP << std::endl;
   std::cout << "FN: " << FN << std::endl;
@@ -392,8 +392,10 @@ void validation(){
 
   double precision = TP / (double)(TP + FP);
   double recall = TP / (double)(TP + FN);
+  double F1 = 2*precision*recall / (precision + recall);
   std::cout << "Precision: " << setprecision(4) << precision << " %" << std::endl;
   std::cout << "Recall: " << setprecision(4) << recall << " %" << std::endl;
+  std::cout << "F1: " << setprecision(4) << F1 << " %" << std::endl;
 }
 
 pcl::visualization::PCLVisualizer::Ptr VisAuto (pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr cloud, pcl::PointCloud<pcl::PointXYZRGB>::ConstPtr knobAuto)
